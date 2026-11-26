@@ -9,6 +9,7 @@ end_color="\e[0m"
 [ "X$GIT_SOURCE_USER" != "X" ] || GIT_SOURCE_USER=scpcom
 [ "X$GIT_TARGET_USER" != "X" ] || GIT_TARGET_USER=$GIT_USER
 [ "X$GIT_TARGET_USER" != "X" ] || GIT_TARGET_USER=$GIT_SOURCE_USER
+[ "X$GIT_SDK_USER" != "X" ] || GIT_SDK_USER=$GIT_TARGET_USER
 
 if [ "X$GIT_TARGET_HOST" = "X" ]; then
   GIT_TARGET_HOST=$GIT_SOURCE_HOST
@@ -20,6 +21,7 @@ fi
 
 GIT_SOURCE_USER_URL=https://$GIT_SOURCE_HOST/$GIT_SOURCE_USER
 GIT_TARGET_USER_URL=https://$GIT_TARGET_HOST/$GIT_TARGET_USER
+GIT_SDK_USER_URL=https://$GIT_TARGET_HOST/$GIT_SDK_USER
 GIT_USER_URL=$GIT_TARGET_USER_URL
 
 [ "X$GIT_REF" = "X" ] && GIT_REF="develop"
@@ -89,7 +91,7 @@ echo "${blue}Link: ${SDK_BOARD_LINK}${end_color}"
 bs=${BUILDDIR}/sdk-prepare-checkout-stamp
 if [ ! -e $bs ]; then
   echo "\n${green}Checking out SDK for ${BOARD_SHORT}${end_color}\n"
-  git clone -b develop ${GIT_TARGET_USER_URL}/LicheeSG-Nano-Build ${BUILDDIR}
+  git clone -b develop ${GIT_SDK_USER_URL}/LicheeSG-Nano-Build ${BUILDDIR}
   cd ${BUILDDIR} && git checkout ${GIT_REF}
   if [ "${GIT_TARGET_HOST}" != "${GIT_SOURCE_HOST}" -o "${GIT_TARGET_USER}" != "${GIT_SOURCE_USER}" ]; then
     [ -e ${BUILDDIR}/host/mirror-clone.sh ] || cp /builder/mirror-clone.sh ${BUILDDIR}/host/

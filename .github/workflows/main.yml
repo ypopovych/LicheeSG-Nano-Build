@@ -71,7 +71,7 @@ jobs:
           image: ghcr.io/ypopovych/licheesg-nano-image:${{ github.ref_name }}
           options: --privileged -v ${{ github.workspace }}/images/:/output
           run: |
-            BOARD_SHORT=${{ matrix.boards }} VARIANT=${{ matrix.variant }} STORAGE_TYPE=${{ matrix.storage }} GIT_REF=${{ github.ref_name }} ./make_image.sh
+            BOARD_SHORT=${{ matrix.boards }} VARIANT=${{ matrix.variant }} STORAGE_TYPE=${{ matrix.storage }} GIT_REF=${{ github.ref_name }} GIT_SDK_USER=${{ github.repository_owner }} ./make_image.sh
             chmod 777 /output/
       - name: Pack
         run: |
