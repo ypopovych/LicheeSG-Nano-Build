@@ -95,6 +95,8 @@ docker build -t builder -f host/Dockerfile .
 docker run --privileged -it --rm -v `pwd`/image:/output builder sh -e -c "BOARD_SHORT=licheervnano ./make_image.sh"
 ```
 
+Set `GIT_SDK_USER` to use a different owner for the SDK repository without changing the owner used for dependencies. It defaults to `GIT_TARGET_USER` (or `scpcom` when unset).
+
 ## build it
 
 ```
